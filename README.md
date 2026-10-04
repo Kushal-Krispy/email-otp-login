@@ -1,4 +1,4 @@
-\# Gmail OTP Login System
+## Gmail OTP Login System
 
 
 
@@ -10,43 +10,43 @@ Users enter their email address, receive a 6-digit OTP by email, and use that OT
 
 
 
-\---
+---
 
 
 
-\## Features
+## Features
 
 
 
-\- Email-based OTP login
+- Email-based OTP login
 
-\- 6-digit OTP
+- 6-digit OTP
 
-\- Gmail SMTP for sending emails
+- Gmail SMTP for sending emails
 
-\- OTP expires after 3 minutes
+- OTP expires after 3 minutes
 
-\- Maximum 5 incorrect OTP attempts
+- Maximum 5 incorrect OTP attempts
 
-\- 60-second wait between OTP requests
+- 60-second wait between OTP requests
 
-\- Flask session-based login
+- Flask session-based login
 
-\- Logout functionality
+- Logout functionality
 
-\- No paid email service or custom domain required
+- No paid email service or custom domain required
 
-\- Gmail App Password authentication
+- Gmail App Password authentication
 
-\- Secrets are kept outside the source code
-
-
-
-\---
+- Secrets are kept outside the source code
 
 
 
-\## Project Structure
+---
+
+
+
+## Project Structure
 
 
 
@@ -84,7 +84,7 @@ gmail-otp/
 
 
 
-\# Requirements
+# Requirements
 
 
 
@@ -92,11 +92,11 @@ Before starting, install:
 
 
 
-\- Python 3.10 or newer
+- Python 3.10 or newer
 
-\- Git
+- Git
 
-\- A Gmail account
+- A Gmail account
 
 
 
@@ -104,11 +104,11 @@ You also need Google 2-Step Verification enabled because Gmail App Passwords req
 
 
 
-\---
+---
 
 
 
-\# 1. Clone the Repository
+# 1. Clone the Repository
 
 
 
@@ -136,11 +136,11 @@ cd gmail-otp
 
 
 
-\---
+---
 
 
 
-\# 2. Create a Virtual Environment
+# 2. Create a Virtual Environment
 
 
 
@@ -184,7 +184,7 @@ You should see something similar to:
 
 
 
-\# 3. Install Dependencies
+# 3. Install Dependencies
 
 
 
@@ -216,11 +216,11 @@ Python's built-in libraries are used for Gmail SMTP, so no separate SMTP package
 
 
 
-\---
+---
 
 
 
-\# 4. Create a Gmail App Password
+# 4. Create a Gmail App Password
 
 
 
@@ -232,7 +232,7 @@ You need a Gmail App Password.
 
 
 
-\## Step 1: Enable 2-Step Verification
+## Step 1: Enable 2-Step Verification
 
 
 
@@ -248,15 +248,15 @@ Enable:
 
 
 
-\*\*2-Step Verification\*\*
+*\*2-Step Verification\*\*
 
 
 
-\---
+---
 
 
 
-\## Step 2: Create an App Password
+## Step 2: Create an App Password
 
 
 
@@ -284,11 +284,11 @@ Do NOT upload it to GitHub.
 
 
 
-\---
+---
 
 
 
-\# 5. Configure Gmail Credentials
+## 5. Configure Gmail Credentials
 
 
 
@@ -332,11 +332,11 @@ SECRET\_KEY=your-secret-key
 
 
 
-\# 6. Set Environment Variables
+# 6. Set Environment Variables
 
 
 
-\## Windows Command Prompt
+## Windows Command Prompt
 
 
 
@@ -376,7 +376,7 @@ Replace the example values with your own values.
 
 
 
-\### Important
+### Important
 
 
 
@@ -392,11 +392,11 @@ If you close the Command Prompt, set them again.
 
 
 
-\---
+---
 
 
 
-\# 7. Run the Application
+## 7. Run the Application
 
 
 
@@ -436,33 +436,33 @@ http://127.0.0.1:5000
 
 
 
-\---
+---
 
 
 
-\# 8. Test OTP Login
+## 8. Test OTP Login
 
 
 
-1\. Enter an email address.
+1. Enter an email address.
 
-2\. Click \*\*Send OTP\*\*.
+2. Click \*\*Send OTP\*\*.
 
-3\. Check the email inbox.
+3. Check the email inbox.
 
-4\. Enter the 6-digit OTP.
+4. Enter the 6-digit OTP.
 
-5\. Click \*\*Verify OTP\*\*.
+5. Click \*\*Verify OTP\*\*.
 
-6\. You should see that login was successful.
-
-
-
-\---
+6. You should see that login was successful.
 
 
 
-\# OTP Rules
+---
+
+
+
+## OTP Rules
 
 
 
@@ -484,11 +484,11 @@ The application currently uses these rules:
 
 
 
-\---
+---
 
 
 
-\# Gmail SMTP
+## Gmail SMTP
 
 
 
@@ -524,11 +524,11 @@ The application authenticates using the Gmail App Password.
 
 
 
-\---
+---
 
 
 
-\# Security
+## Security
 
 
 
@@ -580,11 +580,11 @@ The `.gitignore` file is included to help prevent accidental uploads.
 
 
 
-\---
+---
 
 
 
-\# Important Security Notes
+# Important Security Notes
 
 
 
@@ -596,29 +596,29 @@ For production use, additional security measures should be considered, including
 
 
 
-\- Persistent database storage
+- Persistent database storage
 
-\- Hashed OTP storage
+- Hashed OTP storage
 
-\- Strong production secret keys
+- Strong production secret keys
 
 \- Rate limiting
 
-\- CSRF protection where appropriate
+- CSRF protection where appropriate
 
-\- HTTPS
+- HTTPS
 
-\- Secure session cookies
+- Secure session cookies
 
-\- Account lockout / abuse prevention
+- Account lockout / abuse prevention
 
-\- Email verification controls
+- Email verification controls
 
-\- Logging and monitoring
+- Logging and monitoring
 
-\- Protection against automated OTP requests
+- Protection against automated OTP requests
 
-\- Production-grade secret management
+- Production-grade secret management
 
 
 
@@ -626,15 +626,15 @@ The current OTP storage is in memory. Restarting the Flask application clears ac
 
 
 
-\---
+---
 
 
 
-\# Troubleshooting
+## Troubleshooting
 
 
 
-\## "Could not send email"
+## "Could not send email"
 
 
 
@@ -642,23 +642,23 @@ Check that:
 
 
 
-1\. Your Gmail address is correct.
+1. Your Gmail address is correct.
 
-2\. Your Gmail App Password is correct.
+2. Your Gmail App Password is correct.
 
-3\. 2-Step Verification is enabled.
+3. 2-Step Verification is enabled.
 
-4\. The environment variables are set in the current terminal.
+4. The environment variables are set in the current terminal.
 
-5\. You are using the App Password, not your normal Gmail password.
-
-
-
-\---
+5. You are using the App Password, not your normal Gmail password.
 
 
 
-\## "Gmail configuration is missing"
+---
+
+
+
+## "Gmail configuration is missing"
 
 
 
@@ -698,11 +698,11 @@ Do not share the App Password publicly.
 
 
 
-\---
+---
 
 
 
-\## Port already in use
+## Port already in use
 
 
 
@@ -710,11 +710,11 @@ If port 5000 is already being used, stop the other Flask application or change t
 
 
 
-\---
+---
 
 
 
-\# Stopping the Application
+# Stopping the Application
 
 
 
@@ -730,11 +730,11 @@ Ctrl + C
 
 
 
-\---
+---
 
 
 
-\# License
+## License
 
 
 
