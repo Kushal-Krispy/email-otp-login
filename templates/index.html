@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gmail OTP Login</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            width: 350px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background: #4285f4;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background: #3367d6;
+        }
+
+        #verifySection {
+            display: none;
+        }
+
+        #logoutButton {
+            display: none;
+            background: #555;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Email OTP Login</h1>
+
+    <!-- Email section -->
+    <div id="emailSection">
+
+        <label for="email">Email address</label>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your Gmail"
+        >
+
+        <button onclick="sendOTP()">
+            Send OTP
+        </button>
+
+    </div>
+
+
+    <!-- OTP section -->
+    <div id="verifySection">
+
+        <label for="otp">Enter OTP</label>
+
+        <input
+            type="text"
+            id="otp"
+            placeholder="Enter 6-digit OTP"
+            maxlength="6"
+        >
+
+        <button onclick="verifyOTP()">
+            Verify OTP
+        </button>
+
+    </div>
+
+
+    <!-- Logout -->
+    <button
+        id="logoutButton"
+        onclick="logout()"
+    >
+        Logout
+    </button>
+
+
+    <div id="message"></div>
+
+</div>
+
+
+<script>
+
+    // --------------------------------------------------
+    // SEND OTP
+    // --------------------------------------------------
+
+    async function sendOTP() {
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const message =
+            document.getElementById("message");
+
+
+        if (!email) {
+
+            message.textContent =
+                "Please enter your email.";
+
+            return;
+        }
+
+
+        message.textContent =
+            "Sending OTP...";
+
+
+        try {
+
+            const response = await fetch(
+                "/send-otp",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        email: email
+                    })
+                }
+            );
+
+
+            const data =
+                await response.json();
+
+
+            if (response.ok) {
+
+                message.textContent =
+                    data.message;
+
+                document.getElementById(
+                    "verifySection"
+                ).style.display = "block";
+
+            } else {
+
+                message.textContent =
+                    data.error || "Something went wrong.";
+
+            }
+
+        } catch (error) {
+
+            message.textContent =
+                "Could not connect to the server.";
+
+        }
+    }
+
+
+    // --------------------------------------------------
+    // VERIFY OTP
+    // --------------------------------------------------
+
+    async function verifyOTP() {
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const otp =
+            document.getElementById("otp").value.trim();
+
+        const message =
+            document.getElementById("message");
+
+
+        if (!otp) {
+
+            message.textContent =
+                "Please enter the OTP.";
+
+            return;
+        }
+
+
+        message.textContent =
+            "Checking OTP...";
+
+
+        try {
+
+            const response = await fetch(
+                "/verify-otp",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        email: email,
+                        otp: otp
+                    })
+                }
+            );
+
+
+            const data =
+                await response.json();
+
+
+            if (response.ok) {
+
+                message.textContent =
+                    "Login successful!";
+
+                document.getElementById(
+                    "emailSection"
+                ).style.display = "none";
+
+                document.getElementById(
+                    "verifySection"
+                ).style.display = "none";
+
+                document.getElementById(
+                    "logoutButton"
+                ).style.display = "block";
+
+            } else {
+
+                message.textContent =
+                    data.error || "Incorrect OTP.";
+
+            }
+
+        } catch (error) {
+
+            message.textContent =
+                "Could not connect to the server.";
+
+        }
+    }
+
+
+    // --------------------------------------------------
+    // LOGOUT
+    // --------------------------------------------------
+
+    async function logout() {
+
+        const response = await fetch(
+            "/logout",
+            {
+                method: "POST"
+            }
+        );
+
+
+        if (response.ok) {
+
+            document.getElementById(
+                "emailSection"
+            ).style.display = "block";
+
+            document.getElementById(
+                "verifySection"
+            ).style.display = "none";
+
+            document.getElementById(
+                "logoutButton"
+            ).style.display = "none";
+
+            document.getElementById(
+                "otp"
+            ).value = "";
+
+            document.getElementById(
+                "message"
+            ).textContent =
+                "Logged out.";
+
+        }
+    }
+
+</script>
+
+</body>
+</html>
